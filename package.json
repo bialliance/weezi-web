@@ -6,16 +6,29 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "bootstrap": "^5.1.3",
+    "eslint": "^7.32.0",
+    "node-sass": "^5.0.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
+    "react-animations": "^1.0.0",
+    "react-countup": "^6.0.0",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "react-slick": "^0.28.1",
+    "reactstrap": "^9.0.0",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.3",
+    "use-dencrypt-effect": "^1.0.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
   },
   "eslintConfig": {
     "extends": [

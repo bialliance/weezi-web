@@ -1,0 +1,54 @@
+﻿.page-header-wrapper{
+	position: fixed;
+	z-index: 2;
+	width: 100%;
+	opacity: 0.9;
+}
+.page-header {
+	font-size: 1.2em;
+	line-height: 1.2em;
+	background-color: #FFFFFF;
+	padding: 2.3vw 0;
+	a {
+		color: #000000;
+		text-decoration: none;
+	}
+	.weezi-logo {
+		height: 16px;
+		margin: 0 0 2px 4px;
+	}
+	.redirect {
+		position: absolute;
+		top: 2.3vw;
+		&:first-child {
+			left: 1.3vw;
+		}
+		&:last-child {
+			right: 2.7vw;
+			color: $primary-color
+		}
+	}
+	.routes {
+		position: relative;
+		margin-left: 17.8vw;
+		.route {
+			color: rgba(0, 0, 0, 0.4);
+			&.active {
+				color: #000000;
+			}
+			padding-right: 2.2vw;
+			&:last-child {
+				padding-right: 0;
+			}
+			&:hover {
+				color: $primary-color;
+			}
+		}
+	}
+}
+
+@media (max-width: 479px) {
+	.page-header .routes {
+		display: none;
+	}
+}
