@@ -6,10 +6,11 @@ import {
     Redirect,
 } from 'react-router-dom';
 import Home from './views/Home/Home'
-import Documentation from './views/Documentation/Documentation'
-import Community from './views/Community/Community'
+// import Documentation from './views/Documentation/Documentation'
+// import Community from './views/Community/Community'
 import Layout from './route/Layout';
 import './App.scss'
+import { YMInitializer } from 'react-yandex-metrika';
 
 function App() {
     return (
@@ -17,11 +18,12 @@ function App() {
             <Layout>
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/documentation" component={Documentation} />
-                    <Route path="/community" component={Community} />
+                    {/* <Route path="/documentation" component={Documentation} /> */}
+                    {/* <Route path="/community" component={Community} /> */}
                     <Redirect to="/" />
                 </Switch>
             </Layout>
+            <YMInitializer accounts={[86215189]} options={{webvisor: true}}/>
         </BrowserRouter>
     )
 }

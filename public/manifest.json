@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Weezi",
+  "name": "CRM for DAO Asset Management in DeFi, NFT and GameFi",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,7 +1,6 @@
 ﻿import React, { useEffect } from 'react';
 import { Container } from 'reactstrap'
 import PropTypes from 'prop-types';
-import Weezi from '../../assets/img/home/weezi.svg'
 import { useDencrypt } from "use-dencrypt-effect";
 import { fadeInRight } from 'react-animations';
 import styled, { keyframes } from 'styled-components';
@@ -18,7 +17,6 @@ import icon9 from '../../assets/img/home/icon9.png'
 import icon10 from '../../assets/img/home/icon10.svg'
 import icon11 from '../../assets/img/home/icon11.svg'
 import icon12 from '../../assets/img/home/icon12.svg'
-import icon13 from '../../assets/img/home/icon13.svg'
 import Slider from "react-slick";
 import step1 from '../../assets/img/home/step1.png'
 import step2 from '../../assets/img/home/step2.png'
@@ -26,7 +24,7 @@ import step3 from '../../assets/img/home/step3.png'
 import step4 from '../../assets/img/home/step4.png'
 import SliderStep from '../../components/Home/SliderStep'
 
-const icons = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12, icon13]
+const icons = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12]
 const steps = [
 	{
 		img: step1,
@@ -64,7 +62,10 @@ const AmimationDiv2 = styled.div`
 
 function decryptAnimation(value) {
 
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { result, dencrypt } = useDencrypt();
+
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {
 		dencrypt(value);
 	}, []);
@@ -91,8 +92,13 @@ const Home = (props) => {
 							</clipPath>
 						</defs>
 					</svg>
-					<h2 className="title">CRM for on-chain DAO Asset<br />Management</h2>
+					<h2 className="title">CRM for DAO Asset Management<br />	in DeFi, NFT and GameFi</h2>
 					<span className="subtitle">Launch + Customize + Manage in 1 interface</span>
+					<span className="subtitle mobile">
+						<div>Launch</div>
+						<div>Customize</div>
+						<div>Manage in 1 interface</div>
+					</span>
 				</div>
 			</div>
 
@@ -121,25 +127,25 @@ const Home = (props) => {
 				<div className="content">
 					<div className="stats">
 						<AmimationDiv1 className="stat">
-							<CountUp className="number" end={12} duration={2} delay={1} />
+							<CountUp className="number" end={14} duration={2} delay={1} />
 							<span className="title">{decryptAnimation('DAO Vaults')}</span>
 						</AmimationDiv1>
 						<AmimationDiv2 className="stat">
-							<CountUp className="number" useEasing={true} prefix="$" suffix="M+" decimal="," decimals={1} end={9.5} duration={1} delay={1} />
+							<CountUp className="number" useEasing={true} prefix="$" suffix="M" decimal="," decimals={1} end={12.4} duration={1} delay={1} />
 							<span className="title">{decryptAnimation('Assets Under Management')}</span>
 						</AmimationDiv2>
 						<AmimationDiv2 className="stat">
-							<CountUp className="number" useEasing={true} prefix="$" suffix="M+" decimal="," decimals={1} end={25.5} duration={1} delay={1} />
+							<CountUp className="number" useEasing={true} prefix="$" suffix="M" decimal="," decimals={1} end={28.3} duration={1} delay={1} />
 							<span className="title">{decryptAnimation('Total Transaction Volume')}</span>
 						</AmimationDiv2>
 					</div>
 					<div className="stats">
 						<AmimationDiv1 className="stat">
-							<CountUp className="number" end={245} duration={2} delay={1} />
+							<CountUp className="number" end={248} duration={2} delay={1} />
 							<span className="title">{decryptAnimation('Current Users')}</span>
 						</AmimationDiv1>
 						<AmimationDiv1 className="stat">
-							<CountUp className="number" end={1676} duration={2} delay={1} />
+							<CountUp className="number" end={1690} duration={2} delay={1} />
 							<span className="title">{decryptAnimation('Votes Cast by Community')}</span>
 						</AmimationDiv1>
 					</div>
@@ -159,12 +165,16 @@ const Home = (props) => {
 							))
 						}
 					</div>
+					<div className="description mobile">Ethereum, Uniswap, Maker, Sushswap,<br />Instadapp, Aave, Lido, wBTC, Yearn, Curve,<br />Balancer, Compound, Furucombo and more</div>
 				</div>
 			</div>
 
 			<div className="home-container state5">
 				<div className="content">
-					<span className="subtitle">All you need for transparent and secure<br />asset management on-chain</span>
+					<div className="slider-content-desc">
+						<div className="subtitle">All you need for transparent and secure<br />asset management on-chain</div>
+						<div className="tip">Scroll to learn more</div>
+					</div>
 					<Container>
 						<Slider
 							dots={true}

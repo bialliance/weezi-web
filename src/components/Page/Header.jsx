@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 import Router from './Router';
 import { NavLink } from 'react-router-dom'
-import { Container } from 'reactstrap'
-import logo from '../../assets/img/page/logo.svg'
+// import { Container } from 'reactstrap'
+// import logo from '../../assets/img/page/logo.svg'
 
 class Header extends React.Component {
 	render() {
@@ -24,10 +24,10 @@ class Header extends React.Component {
 								</clipPath>
 							</defs>
 						</svg>
-
 					</NavLink>
 					<Router />
-					<NavLink className="redirect" to={'/'}>Launch dApp</NavLink>
+					<NavLink className="redirect" to={'/'}></NavLink>
+					{/* Launch dApp */}
 				</div>
 			</div>
 		)
