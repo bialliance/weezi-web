@@ -1,0 +1,20 @@
+{
+    "oneClickDao": {
+        "mainnet": "",
+        "testnet": "0x6545d195760E4680AF5656C0a143c654EF7B0424",
+        "binanceMain": "",
+        "binanceTest": ""
+    },
+    "aragon": {
+        "mainnet": "0x3907be053a97ee13fe97503a6ecc4633e6472c98",
+        "testnet": "0xcad24c2fcdbc1ef0bd752f2491d2a2fc1282e215",
+        "binanceMain": "0x553938a450e21091699ba8b3e828c005571c1d6c",
+        "binanceTest": "0x6bdeb0fdeb735e76d5fce98e46d5d45445c9a846"
+    },
+    "ENS": {
+        "mainnet": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+        "testnet": "0x98df287b6c145399aaa709692c8d308357bc085d",
+        "binanceMain": "0x2fedbd7896feaa70c9662806fcbb2935778a5610",
+        "binanceTest": "0x53654179e40e402372c3cea13ade58247339eb9d"
+    }
+}

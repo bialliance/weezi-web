@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'reactstrap'
 import PropTypes from 'prop-types';
 import { useDencrypt } from "use-dencrypt-effect";
@@ -23,6 +23,7 @@ import step2 from '../../assets/img/home/step2.png'
 import step3 from '../../assets/img/home/step3.png'
 import step4 from '../../assets/img/home/step4.png'
 import SliderStep from '../../components/Home/SliderStep'
+import CreateForm from "../../components/Home/CreateForm";
 
 const icons = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12]
 const steps = [
@@ -63,19 +64,21 @@ const AmimationDiv2 = styled.div`
 function decryptAnimation(value) {
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const { result, dencrypt } = useDencrypt();
+	// const { result, dencrypt } = useDencrypt();
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	useEffect(() => {
-		dencrypt(value);
-	}, []);
-	return result
+	// // eslint-disable-next-line react-hooks/rules-of-hooks
+	// useEffect(() => {
+	// 	dencrypt(value);
+	// });
+	// return result
+	return value
 
 }
 
 const Home = (props) => {
 	return (
 		<div>
+			<CreateForm />
 			<div className="home-container state1">
 				<div className="content">
 					<svg className="weezi-logo-i" xmlns="http://www.w3.org/2000/svg" width="65" height="14" viewBox="0 0 65 14" fill="none"><link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-custom-link" /><link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-general-link" />

@@ -57,7 +57,7 @@
     background: linear-gradient(0deg, $primary-color, #ffffff);
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     .container {
       padding: 0 27px 45px 27px;
       .links-wrapper {

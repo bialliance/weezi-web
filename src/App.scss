@@ -9,11 +9,14 @@
 	url("./assets/fonts/SuisseIntl-Regular.svg") format("svg");
 }
 // libs
+@import 'bootstrap/dist/css/bootstrap.min.css';
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
+@import "react-input-range/lib/css/index.css";
 // elements
 @import './assets/scss/_variables.scss';
 @import './assets/scss/_navbar.scss';
+@import './assets/scss/_create-form.scss';
 @import './assets/scss/footer';
 // pages
 @import './assets/scss/_home.scss';

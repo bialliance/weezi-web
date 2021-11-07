@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Card, CardImg, CardBody } from 'reactstrap'
 import PropTypes from 'prop-types';
 

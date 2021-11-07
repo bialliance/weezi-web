@@ -1,8 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom'
 import menuIcon from '../../assets/img/page/menu.svg'
 import { slide as Menu } from 'react-burger-menu'
-import { func } from 'prop-types';
 
 const Router = () => {
 
