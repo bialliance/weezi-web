@@ -19,7 +19,6 @@ class Bia {
         this.aragonContract = ''
         this.daos = ''
         this.chainId = ''
-        this.chainLogo = ''
         this.networkName = ''
         this.appChainId = ''
         this.canChangeNetwork = false
@@ -63,7 +62,6 @@ class Bia {
                         this.appChainId = r
                         this.connected = true
                         this.canChangeNetwork = true
-                        this.chainLogo = this.getChainLogo(this.chainId)
                         this.networkName = await this.web3.eth.net.getNetworkType()
                         resolve(accounts[0])
                     })
@@ -74,24 +72,27 @@ class Bia {
 
     async connect(callback = () => { }) {
         if (!this.connected) {
-            const providerOptions = {
-                mewconnect: {
-                    package: MewConnect, // required
-                    options: {
-                        infuraId: '1fa62a71dee94d9ebc1fc18e82207e55', // required
-                    },
-                },
-            }
-            const web3Modal = new Web3Modal({
-                // network: "mainnet", // optional
-                cacheProvider: false, // optional
-                providerOptions, // required
-                theme: 'dark',
-            })
-            web3Modal.clearCachedProvider()
-
-            this.provider = await web3Modal.connect()
-            this.web3 = new Web3(this.provider)
+            // const providerOptions = {
+            //     mewconnect: {
+            //         package: MewConnect,
+            //         options: {
+            //             infuraId: '1fa62a71dee94d9ebc1fc18e82207e55',
+            //         },
+            //     },
+            // }
+            // const web3Modal = new Web3Modal({
+            //     // network: "mainnet", // optional
+            //     cacheProvider: false, // optional
+            //     providerOptions, // required
+            //     theme: 'dark',
+            // })
+            // web3Modal.clearCachedProvider()
+            // web3Modal.connect().then((res) => console.log('res', res)).catch((e) => console.log('e', e))
+            // this.provider = await web3Modal.connect()
+            // this.web3 = new Web3(this.provider)
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            this.web3 = new Web3(window.web3.currentProvider)
+            console.log(this.web3)
             this.web3.eth.net
                 .isListening()
                 .then(() => {
@@ -102,7 +103,6 @@ class Bia {
                             this.appChainId = r
                             this.connected = true
                             this.canChangeNetwork = true
-                            this.chainLogo = this.getChainLogo(this.chainId)
                             this.networkName = await this.web3.eth.net.getNetworkType()
                             this.proxyBotUrl = proxyBot.url[String(this.chainId)]
                             this.tokenRequestAddress = proxyBot.tokenRequest[String(this.chainId)]
@@ -138,7 +138,11 @@ class Bia {
         })
     }
 
-    async checkName(name) {
+    getDaoAddress(daoName) {
+        return `https://client.aragon.org/#/${daoName}.aragonid.eth`
+    }
+
+    checkName(name) {
         return new Promise((resolve, reject) => {
             this.connect(() => {
                 const contractAddress = this.getENSContractAddress(this.chainId)
@@ -146,18 +150,21 @@ class Bia {
                     checkNameAbi.abi,
                     contractAddress,
                 )
-                const nameHased = hash(`${name}.aragonid.eth`)
-                console.log(name)
-                console.log(nameHased)
-                contract.methods
-                    .resolver(nameHased)
-                    .call((err, result) => {
-                        if (err) {
-                            console.log(err)
-                            reject(err)
-                        }
-                        resolve(result)
-                    })
+                let nameHased = ''
+                try {
+                    nameHased = hash(`${name}.aragonid.eth`)
+                    contract.methods
+                        .resolver(nameHased)
+                        .call((err, result) => {
+                            if (err) {
+                                console.log(err)
+                                reject(err)
+                            }
+                            resolve(result)
+                        })
+                } catch (e) {
+                    reject(e)
+                }
             })
         })
     }
@@ -189,12 +196,6 @@ class Bia {
                 }
             })
         }
-    }
-
-    spliceAddress(address) {
-        return (
-            address.substr(0, 5) + '..' + address.substr(address.length - 4, 4)
-        )
     }
 }
 export default Bia;

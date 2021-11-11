@@ -78,7 +78,7 @@ function decryptAnimation(value) {
 const Home = (props) => {
 	return (
 		<div>
-			<CreateForm />
+			<CreateForm history={props.history} />
 			<div className="home-container state1">
 				<div className="content">
 					<svg className="weezi-logo-i" xmlns="http://www.w3.org/2000/svg" width="65" height="14" viewBox="0 0 65 14" fill="none"><link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-custom-link" /><link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-general-link" />
