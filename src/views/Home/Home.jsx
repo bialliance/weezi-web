@@ -95,8 +95,8 @@ const Home = (props) => {
 							</clipPath>
 						</defs>
 					</svg>
-					<h2 className="title">CRM for DAO Asset Management<br />	in DeFi, NFT and GameFi</h2>
-					<span className="subtitle">Launch + Customize + Manage in 1 interface</span>
+					<h2 className="title">Now - simple CRM  for DAO Asset Management <br />	in DeFi, NFT and GameFi</h2>
+					<span className="subtitle">Tomorrow - disrupter of family offices, trusts,  <br />endowments, charity and grants organizations</span>
 					<span className="subtitle mobile">
 						<div>Launch</div>
 						<div>Customize</div>
