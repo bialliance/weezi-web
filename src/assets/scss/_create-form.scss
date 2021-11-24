@@ -51,7 +51,6 @@
         background-color: white;
         display: flex!important;
         height: 95vh;
-        
         width: 100% !important;
         margin: 0 !important;
         top: 100vh;
@@ -60,7 +59,8 @@
         justify-content: space-between;
         // transform: translateY(-100%);
         &.create-form_step-4 {
-            height: 100vh;
+            height: 0;
+            opacity: 0;
             border-radius: 0;
             background-color: $primary-color;
         }
@@ -76,6 +76,14 @@
         top: 5vh;
         &.create-form_step-4 {
             top: 0;
+            height: 100vh;
+            opacity: 1;
+        }
+        .next-btn {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
         }
     }
     &_last-active{
@@ -84,7 +92,7 @@
         .create-form_topbar{
             display: block;
             color: #979797;
-            font-size: 20px;
+            font-size: 1.2em;
             line-height: 5vh;
             padding-left: 30px;
         }
@@ -93,7 +101,7 @@
     &_left-side {
         color: #EDEDED;
         h2{
-            font-size: 110px;
+            font-size: 6.8em;
             padding-left: 0px;        
         }
     }
@@ -106,13 +114,13 @@
         overflow-y: auto;
         h1{
             color: #000000;
-            font-size: 24px;;
+            font-size: 1.5em;
         }
         p{
             color: #818181;
         }
         .input-icon {
-            font-size: 30px;
+            font-size: 1.8em;
             position: absolute;
             top: 50%;
             right: 5px;
@@ -241,7 +249,7 @@
         }
     }
     .label-before {
-        font-size: 12px;
+        font-size: 0.75em;
         top: 15px;
         left: 30px;
     }
@@ -284,8 +292,8 @@
     }
     .create-status {
         padding: 40px;
-        font-size: 64px;
-        line-height: 74px;
+        font-size: 4em;
+        line-height: 1.2em;
         letter-spacing: 0.02em;
         color: #F5F5F7;
         display: flex;
@@ -296,6 +304,13 @@
             .dark {
                 color: rgba(245,245,247,.5)
             }
+            .daoLink {
+                display: none;
+                a {
+                    text-decoration: none;
+                    color: rgba(245,245,247,.5)
+                }
+            }
         }
         .percentage {
             position: absolute;
@@ -304,7 +319,7 @@
             height: 100%;
             background-color: #0DA569;
             display: flex;
-            align-items: end;
+            align-items: flex-end;
             padding: 40px;
             transition: width 1s ease;
         }

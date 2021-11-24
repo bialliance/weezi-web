@@ -1,20 +1,22 @@
-﻿import React from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import TextareaAutosize from 'react-textarea-autosize';
 
-const TextareaField = ({ value, validate, placeholder, id, maxRows }) => {
+const TextareaField = ({ value, validate, placeholder, id, maxRows, onFocus, onBlur }) => {
 	return (
-		<div class="field">
+		<div className="field">
 			<TextareaAutosize
 				required
-				autocomplete="off"
+				autoComplete="off"
 				id={id}
 				cacheMeasurements
 				value={value}
 				onChange={(e) => validate(e.target.value)}
 				maxRows={maxRows}
+				onFocus={onFocus ? onFocus : () => { }}
+				onBlur={onBlur ? onBlur : () => { }}
 			/>
-			<label for={id} title={placeholder} data-title={placeholder}></label>
+			<label htmlFor={id} title={placeholder} data-title={placeholder}></label>
 		</div>
 	)
 }
@@ -25,6 +27,8 @@ TextareaField.propTypes = {
 	placeholder: PropTypes.string,
 	id: PropTypes.string,
 	maxRows: PropTypes.number,
+	onFocus: PropTypes.func,
+	onBlur: PropTypes.func,
 }
 
 export default TextareaField;

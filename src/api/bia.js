@@ -1,12 +1,12 @@
 import Web3 from 'web3'
-import Web3Modal from 'web3modal'
-import MewConnect from '@myetherwallet/mewconnect-web-client'
+// import Web3Modal from 'web3modal'
+// import MewConnect from '@myetherwallet/mewconnect-web-client'
 import { checkNameAbi } from '../config/checkNameAbi.json'
 import { hash } from 'eth-ens-namehash'
 import { proxyBot } from '../config/default.json'
 import { ENS } from '../config/contractAdresses.json'
 
-const VOTING_BOOLS = [false, false]
+// const VOTING_BOOLS = [false, false]
 
 class Bia {
     constructor() {
@@ -90,36 +90,39 @@ class Bia {
             // web3Modal.connect().then((res) => console.log('res', res)).catch((e) => console.log('e', e))
             // this.provider = await web3Modal.connect()
             // this.web3 = new Web3(this.provider)
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
-            this.web3 = new Web3(window.web3.currentProvider)
-            console.log(this.web3)
-            this.web3.eth.net
-                .isListening()
-                .then(() => {
-                    this.web3.eth.getAccounts().then((e) => {
-                        this.accountAddress = e[0]
-                        this.web3.eth.getChainId().then(async (r) => {
-                            this.chainId = r
-                            this.appChainId = r
-                            this.connected = true
-                            this.canChangeNetwork = true
-                            this.networkName = await this.web3.eth.net.getNetworkType()
-                            this.proxyBotUrl = proxyBot.url[String(this.chainId)]
-                            this.tokenRequestAddress = proxyBot.tokenRequest[String(this.chainId)]
-                            this.price = proxyBot.price[String(this.chainId)]
-                            callback({
-                                address: this.accountAddress,
-                                success: true,
+            if (window.web3) {
+                window.ethereum.request({ method: 'eth_requestAccounts' }).then(() => {
+                    this.web3 = new Web3(window.web3.currentProvider)
+                    this.web3.eth.net
+                        .isListening()
+                        .then(() => {
+                            this.web3.eth.getAccounts().then((e) => {
+                                this.accountAddress = e[0]
+                                this.web3.eth.getChainId().then(async (r) => {
+                                    this.chainId = r
+                                    this.appChainId = r
+                                    this.connected = true
+                                    this.canChangeNetwork = true
+                                    this.networkName = await this.web3.eth.net.getNetworkType()
+                                    this.proxyBotUrl = proxyBot.url[String(this.chainId)]
+                                    this.tokenRequestAddress = proxyBot.tokenRequest[String(this.chainId)]
+                                    this.price = proxyBot.price[String(this.chainId)]
+                                    callback({
+                                        address: this.accountAddress,
+                                        success: true,
+                                        message: '',
+                                    })
+                                })
                             })
                         })
-                    })
-                })
-                .catch((e) => {
-                    callback({ address: null, success: false })
-                })
+                        .catch((e) => callback({ address: null, success: false, message: '', }))
+                }).catch((e) => callback({ address: null, success: false, message: 'Connection rejected', }))
+            } else {
+                callback({ address: null, success: false, message: 'no web3 found', })
+            }
         } else {
             this.networkName = await this.web3.eth.net.getNetworkType()
-            callback({ address: this.accountAddress, success: true })
+            callback({ address: this.accountAddress, success: true, message: '', })
         }
     }
 

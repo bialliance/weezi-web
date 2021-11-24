@@ -1,6 +1,11 @@
-﻿.page-footer {
+﻿@keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+.page-footer {
   padding: 4.06vw 17.5vw 2.08vw 14.5vw;
   background-color: #94ffd5;
+  animation: fadein 2s;
   .container {
     display: flex;
     justify-content: space-between;

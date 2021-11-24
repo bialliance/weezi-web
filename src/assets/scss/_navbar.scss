@@ -1,8 +1,13 @@
-﻿.page-header-wrapper {
+﻿@keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 0.9; }
+}
+.page-header-wrapper {
   position: fixed;
   z-index: 2;
   width: 100%;
   opacity: 0.9;
+  animation: fadein 2s;
 }
 .page-header {
   font-size: 1.2em;

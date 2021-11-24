@@ -1,0 +1,132 @@
+﻿@keyframes fadein {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+@keyframes fadeout {
+	from { opacity: 1; }
+	to   { opacity: 0; }
+}
+.preloader-wrapper {
+	width: 100vw;
+    height: 100vh;
+	position: absolute;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	animation: fadein 2s;
+	&.fadeOut {
+		animation: fadeout 2s;
+	}
+	.cube {
+		margin: auto;
+		font-size: 24px;
+		height: 5em;
+		width: 5em;
+		z-index:1;
+		transform-style: preserve-3d;
+		animation: cube-spin 1.5s infinite ease-in-out alternate both;
+	}
+	.cube-reflection {
+		margin: auto;
+		font-size: 24px;
+		height: 5em;
+		width: 5em;
+		margin-top: 60px;
+		transform-style: preserve-3d;
+		animation: cube-spin 1.5s infinite ease-in-out alternate both;
+	}
+	.side {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		
+		transform-style: preserve-3d;
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: currentcolor;
+			transform: translatez(.5em);
+			animation: cube-explode 1.5s infinite ease-in-out;
+			opacity: .5;
+		}
+	}
+	.side-reflection {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		
+		transform-style: preserve-3d;
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: currentcolor;
+			transform: translatez(.5em);
+			animation: cube-explode 1.5s infinite ease-in-out;
+			opacity: 0.03;
+		}
+	}
+	
+	@for $i from 1 through 4 {
+		.side:nth-child(#{$i}) {
+			transform: rotatey(90deg * $i);
+		}
+	}
+	
+	.side:nth-child(5) {
+		transform: rotatex(90deg);
+	}
+	
+	.side:nth-child(6) {
+		transform: rotatex(270deg);
+	}
+	
+	@for $i from 1 through 4 {
+		.side-reflection:nth-child(#{$i}) {
+			transform: rotatey(90deg * $i);
+		}
+	}
+	
+	.side-reflection:nth-child(5) {
+		transform: rotatex(90deg);
+		background: white!important;
+	}
+	
+	.side-reflection:nth-child(6) {
+		transform: rotatex(270deg);
+		display:none;
+	}
+	
+	
+	@keyframes cube-spin {
+		0% {
+			transform: rotatex(35.264deg) rotatey(45deg);
+		}
+		100% {
+			transform: rotatex(35.264deg) rotatey(45deg + 360deg);
+		}
+	}
+	
+	@keyframes cube-explode {
+		0% {
+			transform: translatez(2.5em);
+		}
+		50% {
+			transform: translatez(2.5em * 1.5);
+		}
+		100% {
+			transform: translatez(2.5em);
+		}
+	}
+}

@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  // useEffect
+} from "react";
 import {
-  Input,
+  // Input,
   Button,
   Col,
   Row,
@@ -16,6 +19,7 @@ import PropTypes from 'prop-types';
 import InputTextField from '../UI/InputTextField'
 import InputNumberField from "../UI/InputNumberField";
 import TextareaField from '../UI/TextareaField'
+import ConnectAlert from "./ConnectAlert";
 const bia = new Bia()
 const CreateForm = (props) => {
 
@@ -56,6 +60,11 @@ const CreateForm = (props) => {
   const [errorText, setErrorText] = useState('')
 
   const [percent, setPercent] = useState(0)
+  const [daoLink, setDaoLink] = useState('')
+  const [createStatusTitle, setCreateStatusTitle] = useState('Creating your personal DAO')
+
+  const [showAlert, setShowAlert] = useState(!bia.connected)
+  const [alertMessage, setAlertMessage] = useState('')
 
   const format = function (days, hours, minutes) {
     return (
@@ -83,6 +92,7 @@ const CreateForm = (props) => {
     return percent
   }
   const createDao = async function () {
+    document.activeElement.blur()
     nextStep()
     if (!nameFree) {
       setErrorText('Name is busy!')
@@ -228,9 +238,8 @@ const CreateForm = (props) => {
                         console.log(percentLocal < 100)
                         setPercent(100)
                         clearInterval(percentUpdater)
-                        alert(bia.getDaoAddress(daoName))
-                        // TODO модальное окно со ссылкой
-                        hideCreateForm()
+                        setDaoLink(bia.getDaoAddress(daoName))
+                        updateDisplay()
                       }
                     }, 1000)
                   })
@@ -254,6 +263,13 @@ const CreateForm = (props) => {
     }
   }
 
+  const updateDisplay = () => {
+    document.querySelector('.create-form_close-form').style.zIndex = 8
+    document.querySelector('.daoLink').style.display = "block"
+    document.querySelector('.daoName').style.display = "none"
+    setCreateStatusTitle('Done')
+  }
+
   function validateName(name) {
     if (!name) {
       setDaoName(name)
@@ -275,25 +291,40 @@ const CreateForm = (props) => {
       setNameFree(false)
       return
     }
-    let nameFreeHash = ''
-    try {
-      nameFreeHash = await bia.checkName(name)
-    } catch (e) {
-      nameFreeHash = '0x0000000000000000000000000000000000000000'
-    }
-    if (nameFreeHash === '0x0000000000000000000000000000000000000000') {
-      setNameFree(true)
-    } else {
+    if (!bia.connected) {
       setNameFree(false)
+      bia.connect((response) => {
+        if (!response.success) {
+          setAlertMessage(response.message)
+          setShowAlert(true)
+        }
+      })
+      return
+    } else {
+      let nameFreeHash = ''
+      try {
+        nameFreeHash = await bia.checkName(name)
+      } catch (e) {
+        nameFreeHash = '0x0000000000000000000000000000000000000000'
+      }
+      if (nameFreeHash === '0x0000000000000000000000000000000000000000') {
+        setNameFree(true)
+      } else {
+        setNameFree(false)
+      }
     }
   }
 
   function nextStep() {
-    setLastActive(currentStep)
-    setCurrentStep(currentStep + 1)
+    bia.connect((response) => {
+      if (!response.success) setShowAlert(true)
+      else {
+        setLastActive(currentStep)
+        setCurrentStep(currentStep + 1)
+      }
+    })
   }
   function prevStep() {
-
     setLastActive(currentStep - 2)
     setCurrentStep(currentStep - 1)
   }
@@ -312,8 +343,29 @@ const CreateForm = (props) => {
       else setValue(prevValue)
   }
 
+  function focusInput() {
+    if (window.innerWidth <= 414) {
+      const stepDOM = document.querySelector(`.create-form_step-${currentStep}`)
+      stepDOM.querySelector('.create-form_left-side').classList.add('d-none')
+      stepDOM.querySelector('.create-form_right-side').style.height = '35vh'
+    }
+  }
+
+  function unfocusInput() {
+    if (window.innerWidth <= 414) {
+      const stepDOM = document.querySelector(`.create-form_step-${currentStep}`)
+      stepDOM.querySelector('.create-form_left-side').classList.remove('d-none')
+      stepDOM.querySelector('.create-form_right-side').style.height = '70vh'
+    }
+  }
+
+  function connectThroughtAlert() {
+    bia.connect()
+  }
+
   return (
     <div className='create-form create-form_hidden'>
+      <ConnectAlert showAlert={showAlert} setShowAlert={setShowAlert} onClick={connectThroughtAlert} message={alertMessage} />
       <span className='create-form_close-form' onClick={hideCreateForm}><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6.5 6.5L25.5 25.5M6.5 25.5L25.5 6.5L6.5 25.5Z" stroke="black" strokeWidth="2" strokeMiterlimit="10" />
       </svg>
@@ -348,7 +400,14 @@ const CreateForm = (props) => {
               </div>
               <FormGroup>
                 <div className="position-relative">
-                  <InputTextField id="daoName" placeholder="Enter DAO name" validate={validateName} value={daoName} />
+                  <InputTextField
+                    onFocus={focusInput}
+                    onBlur={unfocusInput}
+                    id="daoName"
+                    placeholder="Enter DAO name"
+                    validate={validateName}
+                    value={daoName}
+                  />
                   {
                     nameFree ?
                       <CheckCircle color="green" className="input-icon" /> :
@@ -356,6 +415,8 @@ const CreateForm = (props) => {
                   }
                 </div>
                 <TextareaField
+                  onFocus={focusInput}
+                  onBlur={unfocusInput}
                   id="daoDescription"
                   placeholder="and DAO description"
                   value={daoDescription}
@@ -379,9 +440,25 @@ const CreateForm = (props) => {
                 <h1>Create GP token</h1>
                 <p>GP Token is a cryptocurrency based on user’s real-life usability that enables real-time payment and realization.</p>
                 <FormGroup>
-                  <InputTextField id="gpTokenName" placeholder="Full token name" validate={setGpTokenName} value={gpTokenName} />
-                  <InputTextField id="gpTokenSymbol" placeholder="Token Symbol" validate={setGpTokenSymbol} value={gpTokenSymbol} />
+                  <InputTextField
+                    onFocus={focusInput}
+                    onBlur={unfocusInput}
+                    id="gpTokenName"
+                    placeholder="Full token name"
+                    validate={setGpTokenName}
+                    value={gpTokenName}
+                  />
+                  <InputTextField
+                    onFocus={focusInput}
+                    onBlur={unfocusInput}
+                    id="gpTokenSymbol"
+                    placeholder="Token Symbol"
+                    validate={setGpTokenSymbol}
+                    value={gpTokenSymbol}
+                  />
                   <InputNumberField
+                    onFocus={focusInput}
+                    onBlur={unfocusInput}
                     id="gpAmount"
                     placeholder="Amount"
                     validate={validateNumber}
@@ -427,6 +504,8 @@ const CreateForm = (props) => {
                   <div className="vote-period-label">Vote Duration</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="voteDurationDays"
                       placeholder="Days"
                       validate={validateNumber}
@@ -437,6 +516,8 @@ const CreateForm = (props) => {
                       setValue={setVoteDurationDays}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="voteDurationHours"
                       placeholder="Hours"
                       validate={validateNumber}
@@ -447,6 +528,8 @@ const CreateForm = (props) => {
                       setValue={setVoteDurationHours}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="voteDurationMinutes"
                       placeholder="Minutes"
                       validate={validateNumber}
@@ -462,6 +545,8 @@ const CreateForm = (props) => {
                   <div className="vote-period-label">Allocations Period</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="allocationPeriodDays"
                       placeholder="Days"
                       validate={validateNumber}
@@ -472,6 +557,8 @@ const CreateForm = (props) => {
                       setValue={setAllocationPeriodDays}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="allocationPeriodHours"
                       placeholder="Hours"
                       validate={validateNumber}
@@ -482,6 +569,8 @@ const CreateForm = (props) => {
                       setValue={setAllocationPeriodHours}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="allocationPeriodMinutes"
                       placeholder="Minutes"
                       validate={validateNumber}
@@ -497,6 +586,8 @@ const CreateForm = (props) => {
                   <div className="vote-period-label">Delay Period</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="delayPeriodDays"
                       placeholder="Days"
                       validate={validateNumber}
@@ -507,6 +598,8 @@ const CreateForm = (props) => {
                       setValue={setDelayPeriodDays}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="delayPeriodHours"
                       placeholder="Hours"
                       validate={validateNumber}
@@ -517,6 +610,8 @@ const CreateForm = (props) => {
                       setValue={setDelayPeriodHours}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="delayPeriodMinutes"
                       placeholder="Minutes"
                       validate={validateNumber}
@@ -545,9 +640,28 @@ const CreateForm = (props) => {
                 <h1>Create LP token</h1>
                 <p>GP Token is a cryptocurrency based on user’s real-life usability that enables real-time payment and realization.</p>
                 <FormGroup>
-                  <InputTextField id="lpTokenName" placeholder="Full token name" validate={setLpTokenName} value={lpTokenName} />
-                  <InputTextField id="lpTokenSymbol" placeholder="Token Symbol" validate={setLpTokenSymbol} value={lpTokenSymbol} />
-                  <InputTextField id="lpAmount" placeholder="Amount" validate={setLpAmount} value={lpAmount} />
+                  <InputTextField
+                    onFocus={focusInput}
+                    onBlur={unfocusInput}
+                    id="lpTokenName"
+                    placeholder="Full token name"
+                    validate={setLpTokenName}
+                    value={lpTokenName}
+                  />
+                  <InputTextField
+                    onFocus={focusInput}
+                    onBlur={unfocusInput}
+                    id="lpTokenSymbol"
+                    placeholder="Token Symbol"
+                    validate={setLpTokenSymbol} value={lpTokenSymbol}
+                  />
+                  <InputTextField
+                    onFocus={focusInput}
+                    onBlur={unfocusInput}
+                    id="lpAmount"
+                    placeholder="Amount"
+                    validate={setLpAmount} value={lpAmount}
+                  />
                 </FormGroup>
               </div>
               <div>
@@ -583,6 +697,8 @@ const CreateForm = (props) => {
                   <div className="vote-period-label">Dot Vote Duration</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="dotVoteDurationDays"
                       placeholder="Days"
                       validate={validateNumber}
@@ -593,6 +709,8 @@ const CreateForm = (props) => {
                       setValue={setDotVoteDurationDays}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="dotVoteDurationHours"
                       placeholder="Hours"
                       validate={validateNumber}
@@ -603,6 +721,8 @@ const CreateForm = (props) => {
                       setValue={setDotVoteDurationHours}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="dotVoteDurationMinutes"
                       placeholder="Minutes"
                       validate={validateNumber}
@@ -618,6 +738,8 @@ const CreateForm = (props) => {
                   <div className="vote-period-label">Dot Vote Duration</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="financeBudgetPeriodDays"
                       placeholder="Days"
                       validate={validateNumber}
@@ -628,6 +750,8 @@ const CreateForm = (props) => {
                       setValue={setFinanceBudgetPeriodDays}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="financeBudgetPeriodHours"
                       placeholder="Hours"
                       validate={validateNumber}
@@ -638,6 +762,8 @@ const CreateForm = (props) => {
                       setValue={setFinanceBudgetPeriodHours}
                     />
                     <InputNumberField
+                      onFocus={focusInput}
+                      onBlur={unfocusInput}
                       id="financeBudgetPeriodMinutes"
                       placeholder="Minutes"
                       validate={validateNumber}
@@ -658,8 +784,12 @@ const CreateForm = (props) => {
         <Row className={`create-form_step create-form_step-4${currentStep === 4 ? ' create-form_active' : ''}${lastActive === 4 ? ' create-form_last-active' : ''}`}>
           <div className="create-status">
             <div className="title">
-              <span className="bright">Creating your personal DAO</span>
-              <span className="dark">{daoName}</span>
+              <span className="bright">{createStatusTitle}</span>
+              <span className="dark daoName">{daoName}</span>
+              <div className="dark daoLink">
+                <div>Your DAO url:</div>
+                <NavLink to={{ pathname: daoLink }} target="_blank">{daoLink}</NavLink>
+              </div>
             </div>
             <div className="percentage" style={{ width: `${percent}%` }}>{percent}%</div>
           </div>

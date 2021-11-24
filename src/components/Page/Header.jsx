@@ -4,9 +4,13 @@ import { NavLink } from 'react-router-dom'
 // import { Container } from 'reactstrap'
 // import logo from '../../assets/img/page/logo.svg'
 
-const Header = () => {
+const Header = (props) => {
 	function showCreateForm(e) {
 		e.preventDefault()
+		window.scrollTo({
+			top: 0,
+			behavior: "instant"
+		});
 		document.querySelector('.create-form').classList.remove('create-form_hidden')
 		document.body.style.overflowY = 'hidden'
 	}

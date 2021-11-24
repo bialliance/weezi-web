@@ -23,7 +23,7 @@ function App() {
                     <Redirect to="/" />
                 </Switch>
             </Layout>
-            <YMInitializer accounts={[86215189]} options={{webvisor: true}}/>
+            <YMInitializer accounts={[86215189]} options={{ webvisor: true }} />
         </BrowserRouter>
     )
 }
