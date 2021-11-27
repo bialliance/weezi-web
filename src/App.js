@@ -12,17 +12,20 @@ import Layout from './route/Layout';
 import './App.scss'
 import { YMInitializer } from 'react-yandex-metrika';
 
+
 function App() {
     return (
         <BrowserRouter>
-            <Layout>
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    {/* <Route path="/documentation" component={Documentation} /> */}
-                    {/* <Route path="/community" component={Community} /> */}
-                    <Redirect to="/" />
-                </Switch>
-            </Layout>
+            {/* <SmoothScroll> */}
+                <Layout>
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        {/* <Route path="/documentation" component={Documentation} /> */}
+                        {/* <Route path="/community" component={Community} /> */}
+                        <Redirect to="/" />
+                    </Switch>
+                </Layout>
+            {/* </SmoothScroll> */}
             <YMInitializer accounts={[86215189]} options={{ webvisor: true }} />
         </BrowserRouter>
     )

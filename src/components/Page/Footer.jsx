@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom'
 import { Container } from 'reactstrap'
 import FooterIcon from '../../assets/img/page/footer_icon.svg'
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Footer = () => {
 	return (
@@ -17,8 +18,12 @@ const Footer = () => {
 							{/* <NavLink className="redirect" to={'/'}>Contact us</NavLink> */}
 						</div>
 						<div>
-							<div className="rights">© 2021  Weezi</div>
-							<div className="rights mobile">© 2021  Weezi<br />All rights reserved</div>
+							<ScrollAnimation animateIn="animate__animated animate__fadeInUp animate__delay-100ms" animateOnce={true}>
+								<div className="rights">© 2021  Weezi</div>
+							</ScrollAnimation>
+							<ScrollAnimation animateIn="animate__animated animate__fadeInUp animate__delay-50ms" animateOnce={true}>
+								<div className="rights mobile">© 2021  Weezi<br />All rights reserved</div>
+							</ScrollAnimation>
 						</div>
 					</div>
 					<div className="links">
@@ -29,7 +34,9 @@ const Footer = () => {
 							<NavLink className="redirect" to={'/'}>Twitter</NavLink> */}
 						</div>
 						<div>
-							<div className="rights">All rights reserved</div>
+							<ScrollAnimation animateIn="animate__animated animate__fadeInUp animate__delay-50ms" animateOnce={true}>
+								<div className="rights">All rights reserved</div>
+							</ScrollAnimation>
 							<div className="white-space mobile"></div>
 						</div>
 					</div>

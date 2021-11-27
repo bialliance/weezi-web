@@ -1,6 +1,5 @@
 import React, {
   useState,
-  // useEffect
 } from "react";
 import {
   // Input,
@@ -12,7 +11,6 @@ import {
 } from "reactstrap";
 import axios from 'axios';
 import InputRange from 'react-input-range';
-import Bia from '../../api/bia'
 import { CheckCircle, XCircle } from "phosphor-react";
 import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types';
@@ -20,6 +18,7 @@ import InputTextField from '../UI/InputTextField'
 import InputNumberField from "../UI/InputNumberField";
 import TextareaField from '../UI/TextareaField'
 import ConnectAlert from "./ConnectAlert";
+import Bia from '../../api/bia'
 const bia = new Bia()
 const CreateForm = (props) => {
 
@@ -62,8 +61,7 @@ const CreateForm = (props) => {
   const [percent, setPercent] = useState(0)
   const [daoLink, setDaoLink] = useState('')
   const [createStatusTitle, setCreateStatusTitle] = useState('Creating your personal DAO')
-
-  const [showAlert, setShowAlert] = useState(!bia.connected)
+  const [showAlert, setShowAlert] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
 
   const format = function (days, hours, minutes) {
@@ -297,6 +295,9 @@ const CreateForm = (props) => {
         if (!response.success) {
           setAlertMessage(response.message)
           setShowAlert(true)
+        } else {
+          setAlertMessage('')
+          setShowAlert(false)
         }
       })
       return
@@ -363,9 +364,17 @@ const CreateForm = (props) => {
     bia.connect()
   }
 
+
+
   return (
     <div className='create-form create-form_hidden'>
-      <ConnectAlert showAlert={showAlert} setShowAlert={setShowAlert} onClick={connectThroughtAlert} message={alertMessage} />
+      <ConnectAlert
+        showAlert={showAlert}
+        // showAlert={alertMessage ? true : false}
+        setShowAlert={setShowAlert}
+        onClick={connectThroughtAlert}
+        message={alertMessage}
+      />
       <span className='create-form_close-form' onClick={hideCreateForm}><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6.5 6.5L25.5 25.5M6.5 25.5L25.5 6.5L6.5 25.5Z" stroke="black" strokeWidth="2" strokeMiterlimit="10" />
       </svg>

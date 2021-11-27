@@ -1,8 +1,6 @@
 import React from 'react';
 import Router from './Router';
 import { NavLink } from 'react-router-dom'
-// import { Container } from 'reactstrap'
-// import logo from '../../assets/img/page/logo.svg'
 
 const Header = (props) => {
 	function showCreateForm(e) {
@@ -17,7 +15,7 @@ const Header = (props) => {
 	return (
 		<div className="page-header-wrapper">
 			<div className="page-header">
-				<NavLink className="redirect" to={'/'}>
+				<NavLink className="redirect animate__animated animate__fadeInUp_300 animate__delay-500ms" to={'/'}>
 					<svg className="weezi-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 14" fill="none"><link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-custom-link" /><link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-general-link" />
 						<g clipPath="url(#clip0_54:39)">
 							<path d="M0 9.5118L7.76712 14L15.5342 9.5118V0L12.8493 1.55289V7.9589L9.10959 10.1271V4.0274H6.42466V10.1271L2.68493 7.9589V1.55289L0 0V9.5118Z" fill="black" />
@@ -34,7 +32,7 @@ const Header = (props) => {
 					</svg>
 				</NavLink>
 				<Router />
-				<NavLink className="redirect" to={'/'} onClick={(e) => showCreateForm(e)}>Launch dApp</NavLink>
+				<NavLink className="redirect animate__animated animate__fadeInUp_300 animate__delay-1s" to={'/'} onClick={(e) => showCreateForm(e)}>Launch dApp</NavLink>
 			</div>
 		</div>
 	)

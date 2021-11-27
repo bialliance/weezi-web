@@ -29,6 +29,7 @@ const ConnectAlert = ({ showAlert, setShowAlert, onClick, message }) => {
 	// 	width: '200px',
 	// 	borderRadius: '4px'
 	// }
+
 	return (
 		<div className={`alert alert-danger alert-dismissible fade show${showAlert ? '' : ' d-none'}`} role="alert" style={alert}>
 			{/* <Button className="next-btn" type="button" onClick={onClick} style={connect}>Connect</Button> */}

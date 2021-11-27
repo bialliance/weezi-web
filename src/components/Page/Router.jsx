@@ -30,7 +30,6 @@ const Router = () => {
 		href === routeHref ? routes[i].classList.add('active') : routes[i].classList.remove('active')
 	}
 	const [menu, setMenu] = React.useState(false)
-
 	return (
 		<div>
 			<div className="routes mobile">
@@ -51,8 +50,8 @@ const Router = () => {
 				</Menu>
 			</div>
 			<div className="routes">
-				<NavLink to={'/'} className="route active" onClick={activateRoute}>Home</NavLink>
-				<NavLink to={{ pathname: "https://docs.weezi.io" }} target="_blank" className="route" onClick={activateRoute}>Documentation</NavLink>
+				<NavLink to={'/'} className="route active animate__animated animate__fadeInUp_300 animate__delay-650ms" onClick={activateRoute}>Home</NavLink>
+				<NavLink to={{ pathname: "https://docs.weezi.io" }} target="_blank" className="route animate__animated animate__fadeInUp_300 animate__delay-800ms" onClick={activateRoute}>Documentation</NavLink>
 				{/* <NavLink to={'/community'} className="route" onClick={activateRoute}>Community</NavLink> */}
 			</div>
 		</div>

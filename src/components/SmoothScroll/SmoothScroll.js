@@ -4,7 +4,7 @@ import "./SmoothScroll.css";
 import useWindowSize from "../../hooks/useWindowSize";
 
 // eslint-disable-next-line react/prop-types
-const SmoothScroll = ({ children }) => {
+const SmoothScroll = ({onSmoothScroll, children }) => {
   // 1.
   const windowSize = useWindowSize();
 
@@ -25,21 +25,22 @@ const SmoothScroll = ({ children }) => {
   }, [windowSize.height]);
 
   const setBodyHeight = () => {
-    document.body.style.height = `${
-      scrollingContainerRef.current.getBoundingClientRect().height
-    }px`;
+    document.body.style.height = `${scrollingContainerRef.current.getBoundingClientRect().height
+      }px`;
   };
 
   // 5.
   useEffect(() => {
     requestAnimationFrame(() => smoothScrollingHandler());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const smoothScrollingHandler = () => {
     data.current = window.scrollY;
     data.previous += (data.current - data.previous) * data.ease;
     data.rounded = Math.round(data.previous * 100) / 100;
-
+    if(data.previous<1 ) data.previous = 0
+    onSmoothScroll(data.previous)
     scrollingContainerRef.current.style.transform = `translateY(-${data.previous}px)`;
 
     // Recursive call

@@ -13,9 +13,11 @@
 	display: flex;
     justify-content: center;
     align-items: center;
-	animation: fadein 2s;
+	animation: fadein 1s;
+	// animation: fadein 0.1s;
 	&.fadeOut {
-		animation: fadeout 2s;
+		animation: fadeout 1s;
+		// animation: fadeout 0.1s;
 	}
 	.cube {
 		margin: auto;

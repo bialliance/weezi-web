@@ -7,12 +7,12 @@
   z-index: 2;
   width: 100%;
   opacity: 0.9;
-  animation: fadein 2s;
+  animation: fadein .5s;
 }
 .page-header {
   font-size: 1.2em;
   line-height: 1.2em;
-  background-color: #ffffff;
+  background-color: transparent;
   padding: 2.3vw 0;
   a {
     color: #000000;
@@ -34,10 +34,11 @@
     }
   }
   .routes {
-    display: block;
+    display: flex;
     position: relative;
     margin-left: 17.8vw;
     .route {
+      display: block;
       color: rgba(0, 0, 0, 0.4);
       &.active {
         color: #000000;
