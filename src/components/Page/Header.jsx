@@ -33,7 +33,7 @@ const Header = (props) => {
 					</svg>
 				</NavLink>
 				<Router />
-				<NavLink className="redirect animate__animated animate__fadeInUp_300 animate__delay-1s" to={'/'} onClick={(e) => showCreateForm(e)}>Launch dApp</NavLink>
+				{/* <NavLink className="redirect animate__animated animate__fadeInUp_300 animate__delay-1s" to={'/'} onClick={(e) => showCreateForm(e)}>Launch dApp</NavLink> */}
 			</div>
 		</div>
 	)
