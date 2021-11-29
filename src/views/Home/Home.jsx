@@ -31,8 +31,12 @@ import SmoothScroll from '../../components/SmoothScroll/SmoothScroll';
 import Footer from '../../components/Page/Footer';
 import Header from '../../components/Page/Header';
 import ScrollAnimation from 'react-animate-on-scroll';
-import mobileBackground from '../../assets/img/animation/comp_png/1080x1920/1080x1920_000.jpg'
-import iPhoneBackground from '../../assets/img/animation/comp_png/1177x2532/1177x2532_000.jpg'
+// !!version with animation
+// import mobileBackground from '../../assets/img/animation/comp_png/1080x1920/1080x1920_000.jpg'
+// import iPhoneBackground from '../../assets/img/animation/comp_png/1177x2532/1177x2532_000.jpg'
+import mobileBackground from '../../assets/img/home/state1_bg_mobile.png'
+import iPhoneBackground from '../../assets/img/home/state1_bg_mobile.png'
+import desktopBackground from '../../assets/img/home/state1_bg.png'
 
 const icons = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12]
 const steps = [
@@ -77,13 +81,17 @@ function getImages(propotions) {
 	let images = []
 	switch (propotions) {
 		case '16:9':
-			images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
+			// !!version with animation
+			// images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
+			images = [{ default: desktopBackground }]
 			break
 		case '4:3':
-			images = importAll(require.context('../../assets/img/animation/comp_png/1920x1440'));
+			// images = importAll(require.context('../../assets/img/animation/comp_png/1920x1440'));
+			images = [{ default: desktopBackground }]
 			break
 		case '3:4':
-			images = importAll(require.context('../../assets/img/animation/comp_png/1440x1920'));
+			// images = importAll(require.context('../../assets/img/animation/comp_png/1440x1920'));
+			images = [{ default: desktopBackground }]
 			break
 		case '9:16':
 			images = [{ default: mobileBackground }]
@@ -92,7 +100,8 @@ function getImages(propotions) {
 			images = [{ default: iPhoneBackground }]
 			break
 		default:
-			images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
+			// images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
+			images = [{ default: desktopBackground }]
 			break;
 	}
 	return images
@@ -182,10 +191,10 @@ const Home = (props) => {
 	const [images, setImages] = useState([])
 	const [needfillHeight, setNeedfillHeight] = useState(false)
 	const [DAOVaults, setDAOVaults] = useState(14)
-	const [currentUsers, setCurrentUsers] = useState(248)
-	const [aum, setAum] = useState(12.4)
-	const [totalTransactionVolume, setTotalTransactionVolume] = useState(1690)
-	const [votesCastByCommunity, setVotesCastByCommunity] = useState(28.3)
+	const [currentUsers, setCurrentUsers] = useState(285)
+	const [aum, setAum] = useState(11.3)
+	const [totalTransactionVolume, setTotalTransactionVolume] = useState(29.8)
+	const [votesCastByCommunity, setVotesCastByCommunity] = useState(1743)
 	const [isMobile, setIsMobile] = useState(false)
 	const getDaoInfo = () => {
 		api.getDaoInfo().then((data) => {
@@ -194,7 +203,7 @@ const Home = (props) => {
 			setAum(data.aum)
 			setTotalTransactionVolume(data.totalTransactionVolume)
 			setVotesCastByCommunity(data.votesCastByCommunity)
-		})
+		}).catch((e) => e)
 	}
 
 	const onSmoothScroll = (SmoothScrollY) => {
@@ -237,40 +246,15 @@ const Home = (props) => {
 					<>
 						<div>
 							<div className="jpeg-animation-container animate__animated animate__fadeIn animate__delay-2s">
-								{
+								{/* {
+										// !!version with animation
 									!isMobile &&
 									<>
 										<div className="filler left"></div>
 										<div className="filler right"></div>
 									</>
-								}
+								} */}
 								{images.map((image, index) => {
-									// let classNames = 'jpeg-animation'
-									// if (needfillHeight) classNames += ' h-100 w-auto'
-									// if (backgroundIndex !== index) classNames += ' d-none'
-									// return (
-									// 	<img key={image.default} src={image.default} alt="" className={classNames} />
-									// )
-
-									// let classNames = 'jpeg-animation z-index-2'
-									// if (needfillHeight) classNames += ' h-100 w-auto'
-									// if (backgroundIndex !== index) {
-									// 	if (backgroundIndex + 1 === index || backgroundIndex - 1 === index) classNames += ' z-index-1'
-									// 	else classNames += ' d-none'
-									// }
-									// return (
-									// 	<img key={image.default} src={image.default} alt="" className={classNames} />
-									// )
-
-									// let classNames = 'jpeg-animation z-index-0'
-									// if (needfillHeight) classNames += ' h-100 w-auto'
-									// if (backgroundIndex + 1 === index || backgroundIndex - 1 === index) classNames += ' z-index-1'
-									// if (backgroundIndex === index) classNames += ' z-index-2'
-									// // if (backgroundIndex !== index) classNames += ' d-none'
-									// return (
-									// 	<img key={image.default} src={image.default} alt="" className={classNames} />
-									// )
-
 									let classNames = 'jpeg-animation'
 									if (needfillHeight) classNames += ' h-100 w-auto'
 									if (backgroundIndex + 1 !== index && backgroundIndex - 1 !== index && backgroundIndex !== index) classNames += ' d-none'

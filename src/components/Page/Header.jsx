@@ -2,17 +2,17 @@ import React from 'react';
 import Router from './Router';
 import { NavLink } from 'react-router-dom'
 
-const Header = (props) => {
-	function showCreateForm(e) {
-		e.preventDefault()
-		window.scrollTo({
-			top: 0,
-			behavior: "instant"
-		});
-		document.querySelector('.page-header-wrapper').classList.add('d-none')
-		document.querySelector('.create-form').classList.remove('create-form_hidden')
-		document.body.style.overflowY = 'hidden'
-	}
+const Header = () => {
+	// function showCreateForm(e) {
+	// 	e.preventDefault()
+	// 	window.scrollTo({
+	// 		top: 0,
+	// 		behavior: "instant"
+	// 	});
+	// 	document.querySelector('.page-header-wrapper').classList.add('d-none')
+	// 	document.querySelector('.create-form').classList.remove('create-form_hidden')
+	// 	document.body.style.overflowY = 'hidden'
+	// }
 	return (
 		<div className="page-header-wrapper">
 			<div className="page-header">
