@@ -32,11 +32,11 @@ import Footer from '../../components/Page/Footer';
 import Header from '../../components/Page/Header';
 import ScrollAnimation from 'react-animate-on-scroll';
 // !!version with animation
-// import mobileBackground from '../../assets/img/animation/comp_png/1080x1920/1080x1920_000.jpg'
-// import iPhoneBackground from '../../assets/img/animation/comp_png/1177x2532/1177x2532_000.jpg'
-import mobileBackground from '../../assets/img/home/state1_bg_mobile.png'
-import iPhoneBackground from '../../assets/img/home/state1_bg_mobile.png'
-import desktopBackground from '../../assets/img/home/state1_bg.png'
+import mobileBackground from '../../assets/img/animation/comp_png/1080x1920/1080x1920_000.jpg'
+import iPhoneBackground from '../../assets/img/animation/comp_png/1177x2532/1177x2532_000.jpg'
+// import mobileBackground from '../../assets/img/home/state1_bg_mobile.png'
+// import iPhoneBackground from '../../assets/img/home/state1_bg_mobile.png'
+// import desktopBackground from '../../assets/img/home/state1_bg.png'
 
 const icons = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8, icon9, icon10, icon11, icon12]
 const steps = [
@@ -82,16 +82,16 @@ function getImages(propotions) {
 	switch (propotions) {
 		case '16:9':
 			// !!version with animation
-			// images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
-			images = [{ default: desktopBackground }]
+			images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
+			// images = [{ default: desktopBackground }]
 			break
 		case '4:3':
-			// images = importAll(require.context('../../assets/img/animation/comp_png/1920x1440'));
-			images = [{ default: desktopBackground }]
+			images = importAll(require.context('../../assets/img/animation/comp_png/1920x1440'));
+			// images = [{ default: desktopBackground }]
 			break
 		case '3:4':
-			// images = importAll(require.context('../../assets/img/animation/comp_png/1440x1920'));
-			images = [{ default: desktopBackground }]
+			images = importAll(require.context('../../assets/img/animation/comp_png/1440x1920'));
+			// images = [{ default: desktopBackground }]
 			break
 		case '9:16':
 			images = [{ default: mobileBackground }]
@@ -100,8 +100,8 @@ function getImages(propotions) {
 			images = [{ default: iPhoneBackground }]
 			break
 		default:
-			// images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
-			images = [{ default: desktopBackground }]
+			images = importAll(require.context('../../assets/img/animation/comp_png/1920x1080'));
+			// images = [{ default: desktopBackground }]
 			break;
 	}
 	return images
@@ -246,14 +246,14 @@ const Home = (props) => {
 					<>
 						<div>
 							<div className="jpeg-animation-container animate__animated animate__fadeIn animate__delay-2s">
-								{/* {
-										// !!version with animation
+								{
+									// !!version with animation
 									!isMobile &&
 									<>
 										<div className="filler left"></div>
 										<div className="filler right"></div>
 									</>
-								} */}
+								}
 								{images.map((image, index) => {
 									let classNames = 'jpeg-animation'
 									if (needfillHeight) classNames += ' h-100 w-auto'
