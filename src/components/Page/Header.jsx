@@ -9,6 +9,7 @@ const Header = (props) => {
 			top: 0,
 			behavior: "instant"
 		});
+		document.querySelector('.page-header-wrapper').classList.add('d-none')
 		document.querySelector('.create-form').classList.remove('create-form_hidden')
 		document.body.style.overflowY = 'hidden'
 	}

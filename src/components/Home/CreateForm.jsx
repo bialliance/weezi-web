@@ -331,6 +331,7 @@ const CreateForm = (props) => {
   }
   function hideCreateForm() {
     document.querySelector('.create-form').classList.add('create-form_hidden')
+    document.querySelector('.page-header-wrapper').classList.remove('d-none')
     document.body.style.overflowY = 'auto'
   }
 
