@@ -551,7 +551,7 @@ const CreateForm = (props) => {
                     />
                   </FormGroup>
                 </div>
-                <div className="vote-row">
+                {/* <div className="vote-row">
                   <div className="vote-period-label">Allocations Period</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
@@ -591,8 +591,8 @@ const CreateForm = (props) => {
                       setValue={setAllocationPeriodMinutes}
                     />
                   </FormGroup>
-                </div>
-                <div className="vote-row">
+                </div> */}
+                {/* <div className="vote-row">
                   <div className="vote-period-label">Delay Period</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
@@ -632,7 +632,7 @@ const CreateForm = (props) => {
                       setValue={setDelayPeriodMinutes}
                     />
                   </FormGroup>
-                </div>
+                </div> */}
               </div>
             </Col>
           </div>
@@ -674,7 +674,7 @@ const CreateForm = (props) => {
                   />
                 </FormGroup>
               </div>
-              <div>
+              {/* <div>
                 <h1>Dot voting</h1>
                 <p>GP Token is a cryptocurrency based on user’s real-life usability that enables real-time payment and realization.</p>
                 <FormGroup>
@@ -701,8 +701,8 @@ const CreateForm = (props) => {
                       onChange={value => setDotVotingMinimalApproval(value)} />
                   </div>
                 </FormGroup>
-              </div>
-              <div className="vote-period-wrapper">
+              </div> */}
+              {/* <div className="vote-period-wrapper">
                 <div className="vote-row">
                   <div className="vote-period-label">Dot Vote Duration</div>
                   <FormGroup className="vote-period">
@@ -745,7 +745,7 @@ const CreateForm = (props) => {
                   </FormGroup>
                 </div>
                 <div className="vote-row">
-                  <div className="vote-period-label">Dot Vote Duration</div>
+                  <div className="vote-period-label">Finance Budget periond</div>
                   <FormGroup className="vote-period">
                     <InputNumberField
                       onFocus={focusInput}
@@ -785,7 +785,7 @@ const CreateForm = (props) => {
                     />
                   </FormGroup>
                 </div>
-              </div>
+              </div> */}
             </Col>
           </div>
           <Button className="next-btn" type="button" onClick={createDao}>Create</Button>

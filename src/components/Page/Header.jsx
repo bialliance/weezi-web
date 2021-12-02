@@ -3,16 +3,16 @@ import Router from './Router';
 import { NavLink } from 'react-router-dom'
 
 const Header = () => {
-	// function showCreateForm(e) {
-	// 	e.preventDefault()
-	// 	window.scrollTo({
-	// 		top: 0,
-	// 		behavior: "instant"
-	// 	});
-	// 	document.querySelector('.page-header-wrapper').classList.add('d-none')
-	// 	document.querySelector('.create-form').classList.remove('create-form_hidden')
-	// 	document.body.style.overflowY = 'hidden'
-	// }
+	function showCreateForm(e) {
+		e.preventDefault()
+		window.scrollTo({
+			top: 0,
+			behavior: "instant"
+		});
+		document.querySelector('.page-header-wrapper').classList.add('d-none')
+		document.querySelector('.create-form').classList.remove('create-form_hidden')
+		document.body.style.overflowY = 'hidden'
+	}
 	return (
 		<div className="page-header-wrapper">
 			<div className="page-header">
@@ -33,7 +33,7 @@ const Header = () => {
 					</svg>
 				</NavLink>
 				<Router />
-				{/* <NavLink className="redirect animate__animated animate__fadeInUp_300 animate__delay-1s" to={'/'} onClick={(e) => showCreateForm(e)}>Launch dApp</NavLink> */}
+				<NavLink className="redirect animate__animated animate__fadeInUp_300 animate__delay-1s" to={'/'} onClick={(e) => showCreateForm(e)}>Launch dApp</NavLink>
 			</div>
 		</div>
 	)
