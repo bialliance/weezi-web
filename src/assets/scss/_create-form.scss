@@ -151,6 +151,43 @@
             box-shadow: none;
         }
     }
+
+    .question-wrapper {
+        position: absolute;
+        z-index: 1;
+        height: 22px;
+        width: 22px;
+        display: inline;
+        top: 6px;
+        .question-icon {
+            color: #0B6944;
+            z-index: 2;
+        }
+        .question-title {
+            display: none;
+            bottom: 18px;
+            left: 12px;
+            border-radius: 8px;
+            padding: 8px;
+            background-color: #000;
+            color: #999999;
+            font-size: 12px;
+            width: 382px;
+            position: absolute;
+            opacity: 0;
+            transition: opacity .5s ease;
+            &.visible {
+                display: block;
+                opacity: 1;
+            }
+        }
+        &.fr {
+            left: 100px;
+        }
+        &.sc {
+            left: 190px;
+        }
+    }
     
     .input-range-label {
         position: absolute;
@@ -207,6 +244,12 @@
         }
     }
     .vote-period-wrapper {
+        .question-icon {
+            position: absolute;
+            right: -24px;
+            top: -5px;
+            color: #999999;
+        }
         .vote-row {
             display: flex;
             align-items: center;
@@ -334,6 +377,14 @@
         &_right-side {
             height: 70vh;
         }
+        .question-wrapper {
+            &.fr {
+                left: 97px;
+            }
+            &.sc {
+                left: 183px;
+            }
+        }
     }
 }
 
@@ -345,6 +396,30 @@
                 align-items: flex-start;
                 .vote-period {
                     width: 100%;
+                }
+            }
+        }
+        .question-wrapper {
+            &.fr {
+                left: 89px;
+            }
+            &.sc {
+                left: 166px;
+            }
+        }
+    }
+}
+
+@media(max-width: 610px) {
+    .create-form {
+        .question-wrapper {
+            .question-title {
+                display: none;
+                width: 224px;
+                left: 12px;
+                bottom: 23px;
+                &.visible {
+                    display: block;
                 }
             }
         }

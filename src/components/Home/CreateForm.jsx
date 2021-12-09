@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import axios from 'axios';
 import InputRange from 'react-input-range';
-import { CheckCircle, XCircle } from "phosphor-react";
+import { CheckCircle, XCircle, Question } from "phosphor-react";
 import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import InputTextField from '../UI/InputTextField'
@@ -398,7 +398,7 @@ const CreateForm = (props) => {
           </svg>
         </NavLink>
         <Row className={`create-form_step create-form_step-1${currentStep === 1 ? ' create-form_active' : ''}${lastActive === 1 ? ' create-form_last-active' : ''}`}>
-          <div className="create-form_topbar" onClick={prevStep}>1/3 Create DAO </div>
+          <div className="create-form_topbar" onClick={prevStep}>1/3 Berezka DAO </div>
           <div className="flex-wrapper">
             <Col className="create-form_left-side" xs={12} lg={6}>
               <h2>1/3</h2>
@@ -406,7 +406,7 @@ const CreateForm = (props) => {
             <Col className="create-form_right-side" xs={12} lg={6}>
               <div>
                 <h1>Create DAO</h1>
-                <p>So create your first DAO you have to fill this form. Don’t worry is less when 15 minutes</p>
+                <p>Fill out the forms to create<br />your personal DAO</p>
               </div>
               <FormGroup>
                 <div className="position-relative">
@@ -440,21 +440,21 @@ const CreateForm = (props) => {
         </Row>
 
         <Row className={`create-form_step create-form_step-2${currentStep === 2 ? ' create-form_active' : ''}${lastActive === 2 ? ' create-form_last-active' : ''}`}>
-          <div className="create-form_topbar" onClick={prevStep}>2/3 Create GP token</div>
+          <div className="create-form_topbar" onClick={prevStep}>2/3 Berezka DAO BEGO 30,000</div>
           <div className="flex-wrapper">
             <Col className="create-form_left-side" xs={12} lg={6}>
               <h2>2/3</h2>
             </Col>
             <Col className="create-form_right-side" xs={12} lg={6}>
               <div>
-                <h1>Create GP token</h1>
-                <p>GP Token is a cryptocurrency based on user’s real-life usability that enables real-time payment and realization.</p>
+                <h1>Create Governance token</h1>
+                <p>Governance token is an ERC-20 token which controls all functions<br />of your DAO via voting</p>
                 <FormGroup>
                   <InputTextField
                     onFocus={focusInput}
                     onBlur={unfocusInput}
                     id="gpTokenName"
-                    placeholder="Full token name"
+                    placeholder="Full token name: Bitcoin"
                     validate={setGpTokenName}
                     value={gpTokenName}
                   />
@@ -462,7 +462,7 @@ const CreateForm = (props) => {
                     onFocus={focusInput}
                     onBlur={unfocusInput}
                     id="gpTokenSymbol"
-                    placeholder="Token Symbol"
+                    placeholder="Token symbol: BTC (Up to 5 symbols)"
                     validate={setGpTokenSymbol}
                     value={gpTokenSymbol}
                   />
@@ -470,7 +470,7 @@ const CreateForm = (props) => {
                     onFocus={focusInput}
                     onBlur={unfocusInput}
                     id="gpAmount"
-                    placeholder="Amount"
+                    placeholder="Amount of tokens (minted directly to your wallet)"
                     validate={validateNumber}
                     value={gpAmount}
                     pattern="[0-9]*"
@@ -482,36 +482,62 @@ const CreateForm = (props) => {
               </div>
               <div>
                 <h1>Voting</h1>
-                <p>GP Token is a cryptocurrency based on user’s real-life usability that enables real-time payment and realization.</p>
-
+                <p>Each DAO is managed only via voting.<br />Voting parameters are set below</p>
                 <FormGroup>
                   <div className="position-relative">
-                    <div className="input-range-label">
-                      <div>Support</div>
-                      <div className="percent">{votingSupportRequired}%</div>
+                    <div className="question-wrapper fr">
+                      <Question
+                        className="question-icon"
+                        size={22}
+                        weight="fill"
+                        onMouseOver={(e) => e.currentTarget.parentNode.querySelector('.question-title').classList.add('visible')}
+                        onMouseOut={(e) => e.currentTarget.parentNode.querySelector('.question-title').classList.remove('visible')}
+                      />
+                      <div className="question-title">Relative Support %: percent of voters required to vote “yes” for the<br />vote to pass; percent of voters and how many tokens have voted<br />SM Rsceecueoa cee ihe mueiNac cute R rect karte<br />Recommended Support level for small groups - 51%</div>
                     </div>
-                    <InputRange
-                      maxValue={100}
-                      minValue={0}
-                      value={votingSupportRequired}
-                      onChange={value => setVotingSupportRequired(value)} />
+                    <div className="position-relative">
+                      <div className="input-range-label">
+                        <div>Support</div>
+                        <div className="percent">{votingSupportRequired}%</div>
+                      </div>
+                      <InputRange
+                        maxValue={100}
+                        minValue={0}
+                        value={votingSupportRequired}
+                        onChange={value => setVotingSupportRequired(value)} />
+                    </div>
                   </div>
                   <div className="position-relative">
-                    <div className="input-range-label">
-                      <div>Minimum approval</div>
-                      <div className="percent">{votingMinimalApproval}%</div>
+                    <div className="question-wrapper sc">
+                      <Question
+                        className="question-icon"
+                        size={22}
+                        weight="fill"
+                        onMouseOver={(e) => e.currentTarget.parentNode.querySelector('.question-title').classList.add('visible')}
+                        onMouseOut={(e) => e.currentTarget.parentNode.querySelector('.question-title').classList.remove('visible')}
+                      />
+                      <div className="question-title">Minimum Approval %: what percent of the total token supply is<br />needed to vote “yes” for the vote to be valid, and what percent of<br />the total token supply has voted “yes” so far. Recommended<br />Minimum approval level for small groups - 25%</div>
                     </div>
-                    <InputRange
-                      maxValue={100}
-                      minValue={0}
-                      value={votingMinimalApproval}
-                      onChange={value => setVotingMinimalApproval(value)} />
+                    <div className="position-relative">
+                      <div className="input-range-label">
+                        <div>Minimum approval</div>
+                        <div className="percent">{votingMinimalApproval}%</div>
+                      </div>
+                      <InputRange
+                        maxValue={100}
+                        minValue={0}
+                        value={votingMinimalApproval}
+                        onChange={value => setVotingMinimalApproval(value)} />
+                    </div>
                   </div>
                 </FormGroup>
               </div>
               <div className="vote-period-wrapper">
                 <div className="vote-row">
-                  <div className="vote-period-label">Vote Duration</div>
+                  <div className="position-relative">
+                    <div className="vote-period-label">Vote Duration</div>
+                    <Question className="question-icon" size={22} />
+                  </div>
                   <FormGroup className="vote-period">
                     <InputNumberField
                       onFocus={focusInput}
@@ -647,14 +673,14 @@ const CreateForm = (props) => {
             </Col>
             <Col className="create-form_right-side" xs={12} lg={6}>
               <div>
-                <h1>Create LP token</h1>
-                <p>GP Token is a cryptocurrency based on user’s real-life usability that enables real-time payment and realization.</p>
+                <h1>Create Community token</h1>
+                <p>Community token is an ERC-20 token which represents rights to<br />the portion of all DAO assets. Community tokens are received in<br />exchange for deposits to DAO vaults, and are used to withdraw<br />your portion of DAO assets</p>
                 <FormGroup>
                   <InputTextField
                     onFocus={focusInput}
                     onBlur={unfocusInput}
                     id="lpTokenName"
-                    placeholder="Full token name"
+                    placeholder="Full token name: Bitcoin"
                     validate={setLpTokenName}
                     value={lpTokenName}
                   />
@@ -662,7 +688,7 @@ const CreateForm = (props) => {
                     onFocus={focusInput}
                     onBlur={unfocusInput}
                     id="lpTokenSymbol"
-                    placeholder="Token Symbol"
+                    placeholder="Token Symbol: BTC (Up to 5 symbols)"
                     validate={setLpTokenSymbol} value={lpTokenSymbol}
                   />
                   <InputTextField
