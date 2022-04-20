@@ -19,10 +19,10 @@ const Footer = () => {
 						</div>
 						<div>
 							<ScrollAnimation animateIn="animate__animated animate__fadeInUp animate__delay-100ms" animateOnce={true}>
-								<div className="rights">© 2021  Weezi</div>
+								<div className="rights">© 2022  Weezi</div>
 							</ScrollAnimation>
 							<ScrollAnimation animateIn="animate__animated animate__fadeInUp animate__delay-50ms" animateOnce={true}>
-								<div className="rights mobile">© 2021  Weezi<br />All rights reserved</div>
+								<div className="rights mobile">© 2022  Weezi<br />All rights reserved</div>
 							</ScrollAnimation>
 						</div>
 					</div>
